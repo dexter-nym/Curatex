@@ -11,16 +11,17 @@ router.get("/profile", isLoggedIn, async function (req, res) {
   res.render("profile", { user });
 });
 
-router.get("/home", isLoggedIn, function (req, res) {
-  res.render("home");
+router.get("/home", isLoggedIn, async function (req, res) {
+  let user = await userModel.findOne({ username: req.session.passport.user });
+  res.render("home", { user });
 });
 
-router.get("/users/logout", isLoggedIn, function (req, res, next) {
+router.get("/logout", isLoggedIn, function (req, res, next) {
   req.logout(function (err) {
     if (err) {
       return next(err);
     }
-    res.redirect("/");
+    res.redirect("/login");
   });
 });
 

@@ -1,11 +1,158 @@
+<style>
+    /* Navbar Styles */
+    .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background-color: transparent;
+            box-shadow: none; /* Removed shadow */
+        }
+
+        .logo img {
+            width: 60px; /* Adjusted logo size */
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .navbar-items {
+            display: flex;
+            gap: 25px;
+            
+        }
+
+        .navbar-items a {
+            color: #2C3E50;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .navbar-items a:hover {
+            color: #3498db;
+        }
+
+        .navbar-items a.selected {
+            color: #3498db; /* Highlight color on click */
+        }
+
+        .navbar-items a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: transparent;
+            transition: background-color 0.3s;
+        }
+
+        .navbar-items a.selected::after {
+            background-color: #3498db; /* Underline effect on selected */
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+
+        .search-bar {
+            padding: 8px;
+            border-radius: 20px;
+            border: 1px solid #bdc3c7;
+            width: 100%;
+            font-size: 14px;
+            background-color: #d2cac5; /* Lighter color */
+        }
+
+        .comments-icon {
+            font-size: 20px;
+            color: #d2cac5;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        /* Comment Slide Dock */
+        .comments-dock {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background-color: #ecf0f1;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 250px;
+            height: 300px;
+            overflow-y: scroll;
+            border-radius: 10px;
+        }
+        
+        .profile-nav img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Profile Picture in Navbar */
+        .profile-nav {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            margin-left: 20px; /* Space between comment icon and profile */
+        }
+
+        .profile-nav img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* User Profile Dropdown */
+        .user-profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .user-profile-dropdown a {
+            display: block;
+            padding: 8px;
+            text-decoration: none;
+            color: #2C3E50;
+        }
+
+        .user-profile-dropdown a:hover {
+            color: #3498db;
+        }
+</style>
+
+</head>
+<body>
 <div class="navbar">
     <div class="logo">
         <a href="#"><img src="/images/logo/logo.png" alt="Logo"></a>
     </div>
     <div class="navbar-items">
-        <a href="#" id="home">Home</a>
-        <a href="#" id="explore">Explore</a>
-        <a href="#" id="create">Create</a>
+        <a href="/users/home" id="home">Home</a>
+        <a href="/users/explore" id="explore">Explore</a>
+        <a href="/users/create" id="create">Create</a>
     </div>
     <div class="search-container">
         <input class="search-bar" type="text" placeholder="Search...">
@@ -14,5 +161,13 @@
         <div class="profile-nav" onclick="toggleUserProfile()">
             <img src="/images/uploads/<%= user.profileImage %>" alt="Profile Picture">
         </div>
+    </div>
+    <div id="user-profile-dropdown" class="user-profile-dropdown">
+        <a href="/users/profile">Profile</a>
+        <a href="/users/logout">Logout</a>
+    </div>
+    
+    <div id="comments-dock" class="comments-dock">
+        <p>Comment section...</p>
     </div>
 </div>
