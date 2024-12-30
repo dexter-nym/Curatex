@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const plm = require("passport-local-mongoose");
 
 mongoose.connect("mongodb://127.0.0.1:27017/curatex");
 
@@ -20,20 +21,18 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     trim: true,
   },
-  password: {
-    type: String,
-    required: true,
-  },
   profileImage: String,
-    posts: {
-        type: Array,
-        default: [],
-    },
+  posts: {
+    type: Array,
+    default: [],
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
+
+userSchema.plugin(plm);
 
 const user = mongoose.model("user", userSchema);
 

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #2C3E50;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background-color: transparent;
+            box-shadow: none; /* Removed shadow */
+        }
+
+        .logo img {
+            width: 60px; /* Adjusted logo size */
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .navbar-items {
+            display: flex;
+            gap: 25px;
+            
+        }
+
+        .navbar-items a {
+            color: #2C3E50;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .navbar-items a:hover {
+            color: #3498db;
+        }
+
+        .navbar-items a.selected {
+            color: #3498db; /* Highlight color on click */
+        }
+
+        .navbar-items a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: transparent;
+            transition: background-color 0.3s;
+        }
+
+        .navbar-items a.selected::after {
+            background-color: #3498db; /* Underline effect on selected */
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+
+        .search-bar {
+            padding: 8px;
+            border-radius: 20px;
+            border: 1px solid #bdc3c7;
+            width: 100%;
+            font-size: 14px;
+            background-color: #d2cac5; /* Lighter color */
+        }
+
+        .comments-icon {
+            font-size: 20px;
+            color: #d2cac5;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        /* Comment Slide Dock */
+        .comments-dock {
+            display: none;
+            position: absolute;
+            top: 50px;
+            right: 20px;
+            background-color: #ecf0f1;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 250px;
+            height: 300px;
+            overflow-y: scroll;
+            border-radius: 10px;
+        }
+        
+        .profile-nav img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Profile Picture in Navbar */
+        .profile-nav {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            margin-left: 20px; /* Space between comment icon and profile */
+        }
+
+        .profile-nav img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* User Profile Dropdown */
+        .user-profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .user-profile-dropdown a {
+            display: block;
+            padding: 8px;
+            text-decoration: none;
+            color: #2C3E50;
+        }
+
+        .user-profile-dropdown a:hover {
+            color: #3498db;
+        }
+
+        /* Profile */
+        .profile-container {
+            position: relative;
+            top: 27%;
+        }
+
+        .profile {
+            display: inline-block;
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .fullname {
+            font-size: 28px;
+            font-weight: normal;
+            margin-bottom: 5px;
+            color: #2C3E50;
+        }
+
+        .username, .email {
+            font-size: 14px;
+            color: #7f8c8d;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .profile-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            color: #2C3E50;
+        }
+
+        .button {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 10px;
+            transition: all 0.3s;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .button:hover {
+            color: #3498db;
+        }
+
+        .line {
+            height: 2px;
+            width: 100%;
+            background-color: transparent;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            transition: background-color 0.3s;
+        }
+
+        .selected .line {
+            background-color: #3498db;
+        }
+
+        .content {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Create Pin */
+
+        input[type="username"],
+        input[type="email"],
+        input[type="fullname"],
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #E0E0E0;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        /* Style the file input */
+        input[type="file"] {
+            display: inline-block;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            height: 40px;
+            width: 235px; /* Keep the default width based on content */
+        }
+        
+        /* Style the file input on hover */
+        input[type="file"]:hover {
+          background-color: #e8e8e8;
+          border-color: #888;
+        }
+
+        .submit-pin-button {
+            display: flex; 
+            gap: 10px;
+            margin: 10px 0;
+        }
+        button {
+            width: 235px;
+            padding: 10px;
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3D7CC0;
+        }
+
+        .form-div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+    </style>
+</head>
+<body>
+    <% include partials/navbar %>
+
+    <div class="profile-container">
+        <div class="profile">
+            <img id="profile" class="profile-img" src="profile-pic.jpg" alt="Profile Picture">
+            <form id="setprofile" hidden action="/users/setprofile" method="post" enctype="multipart/form-data">
+                <input type="file" name="image" >
+            </form>
+            <h2 class="fullname">John Doe</h2>
+            <p class="username">@john_doe</p>
+            <p class="email">john.doe@example.com</p>
+
+            <div class="profile-buttons">
+                <div class="button" id="saved-pins" onclick="toggleContent('saved-pins')">
+                    Saved Pins
+                    <div class="line"></div>
+                </div>
+                <div class="button" id="edit-profile" onclick="toggleContent('edit-profile')">
+                    Edit Profile
+                    <div class="line"></div>
+                </div>
+                <div class="button" id="uploads" onclick="toggleContent('uploads')">
+                    Uploads
+                    <div class="line"></div>
+                </div>
+                <div class="button" id="create-pin" onclick="toggleContent('create-pin')">
+                    Create Pin
+                    <div class="line"></div>
+                </div>
+            </div>
+
+            <div id="saved-pins-content" class="content">Saved Pins Content</div>
+            <div id="edit-profile-content" class="content">
+                <div class="container">
+                    <h1>Update Profile</h1>
+                    <form action="/users/update" method="POST">
+                        <input type="text" name="fullname" placeholder="Enter your full name" required>
+                        <input type="text" name="username" placeholder="Enter your username" required>
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                        <br>
+                        <button type="submit">Update</button>
+                        <button type="button" onclick="window.location.href = '/users/profile';">Cancel</button>
+                    </form>
+                </div>
+            </div>
+            <div id="uploads-content" class="content">
+                
+            </div>
+            <div id="create-pin-content" class="content">
+                <form action="/users/post" method="POST" class="form-div" enctype="multipart/form-data">
+                    <input type="text" name="title" placeholder="Image title" required>
+                    <input type="text" name="description" placeholder="Image description" required>
+                    <input type="text" name="keywords" placeholder="tag1, tag2, tag3" required>
+                    <div class="submit-pin-button">
+                        <input type="file" name="image" placeholder="Select your image" required>
+                        <button type="submit">Submit & Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="comments-dock" class="comments-dock">
+        <p>Comment section...</p>
+    </div>
+
+    <div id="user-profile-dropdown" class="user-profile-dropdown">
+        <a href="#">Profile</a>
+        <a href="#">Logout</a>
+    </div>
+
+    <script>
+        // Default section
+        toggleContent('saved-pins'); // Default to Saved Pins content
+
+        // Function to toggle the visibility of content sections and activate lines
+        function toggleContent(section) {
+            const sections = ['saved-pins', 'edit-profile', 'uploads', 'create-pin'];
+            sections.forEach((sec) => {
+                const content = document.getElementById(`${sec}-content`);
+                const button = document.getElementById(sec);
+                const line = button.querySelector('.line');
+                
+                if (sec === section) {
+                    content.style.display = 'block';
+                    button.classList.add('selected');
+                    line.style.backgroundColor = '#3498db';
+                } else {
+                    content.style.display = 'none';
+                    button.classList.remove('selected');
+                    line.style.backgroundColor = 'transparent';
+                }
+            });
+        }        
+
+        // Function to toggle the comment dock visibility
+        function toggleCommentsDock() {
+            const dock = document.getElementById('comments-dock');
+            dock.style.display = (dock.style.display === 'block' ? 'none' : 'block');
+        }
+
+        // Function to close the comment dock when clicking outside
+        document.addEventListener('click', function(event) {
+            const dock = document.getElementById('comments-dock');
+            const commentIcon = document.querySelector('.comments-icon');
+            if (!commentIcon.contains(event.target) && !dock.contains(event.target)) {
+                dock.style.display = 'none';
+            }
+        });
+
+        // Function to toggle user profile dropdown visibility
+        function toggleUserProfile(event) {
+            const dropdown = document.getElementById('user-profile-dropdown');
+            const isDropdownVisible = dropdown.style.display === 'block';
+        
+            // Close any open dropdowns first
+            const allDropdowns = document.querySelectorAll('.user-profile-dropdown');
+            allDropdowns.forEach((dropdown) => dropdown.style.display = 'none');
+        
+            // Toggle the visibility of the clicked profile dropdown
+            if (!isDropdownVisible) {
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        }
+
+        // Close the user profile dropdown if clicking outside
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('user-profile-dropdown');
+            const profileImg = document.querySelector('.profile-nav');
+
+            // Close dropdown if click is outside of the profile image and dropdown
+            if (!profileImg.contains(event.target) && !dropdown.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        document.querySelector("#profile").addEventListener('click', function(){
+            document.querySelector("#setprofile input").click();
+        });
+        document.querySelector("#setprofile input").addEventListener("change", function(){
+            document.querySelector("#setprofile").submit();
+        })
+    </script>
+</body>
+</html>

@@ -29,7 +29,7 @@
             font-size: 24px;
             color: #2C3E50;
         }
-        input[type="email"],
+        input[type="username"],
         input[type="password"] {
             width: 90%;
             padding: 10px;
@@ -91,8 +91,8 @@
 <body>
     <div class="container">
         <h1>Login</h1>
-        <form action="/login" method="POST">
-            <input type="email" name="email" placeholder="Enter your email" required>
+        <form action="/users/login" method="POST">
+            <input type="username" name="username" placeholder="Enter your username" required>
             <input type="password" name="password" placeholder="Enter your password" required>
             <button type="submit">Submit & Login</button>
         </form>
