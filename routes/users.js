@@ -3,10 +3,12 @@ var router = express.Router();
 var userModel = require("../models/userModel");
 var isLoggedIn = require("../middlewares/isLoggedIn");
 const passport = require("passport");
+const upload = require("../utils/multer");
 
 /* GET users listing. */
-router.get("/profile", isLoggedIn, function (req, res) {
-  res.render("profile");
+router.get("/profile", isLoggedIn, async function (req, res) {
+  let user = await userModel.findOne({ username: req.session.passport.user });
+  res.render("profile", { user });
 });
 
 router.get("/home", isLoggedIn, function (req, res) {
@@ -52,6 +54,18 @@ router.post(
     successRedirect: "/users/profile",
   }),
   function (req, res, next) {}
+);
+
+router.post(
+  "/setprofile",
+  isLoggedIn,
+  upload.single("image"),
+  async function (req, res, next) {
+    let user = await userModel.findOne({ username: req.session.passport.user });
+    user.profileImage = req.file.filename;
+    await user.save();
+    res.redirect("/users/profile");
+  }
 );
 
 module.exports = router;

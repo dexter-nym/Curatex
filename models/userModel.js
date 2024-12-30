@@ -21,7 +21,10 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     trim: true,
   },
-  profileImage: String,
+  profileImage: {
+    type: String,
+    default: "profile.png",
+  },
   posts: {
     type: Array,
     default: [],
