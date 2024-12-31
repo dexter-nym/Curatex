@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var userModel = require("../models/userModel");
+var postModel = require("../models/postModel");
 var isLoggedIn = require("../middlewares/isLoggedIn");
 const passport = require("passport");
 const upload = require("../utils/multer");
@@ -14,6 +15,11 @@ router.get("/profile", isLoggedIn, async function (req, res) {
 router.get("/home", isLoggedIn, async function (req, res) {
   let user = await userModel.findOne({ username: req.session.passport.user });
   res.render("home", { user });
+});
+
+router.get("/create", isLoggedIn, async function (req, res) {
+  let user = await userModel.findOne({ username: req.session.passport.user });
+  res.render("create", { user });
 });
 
 router.get("/logout", isLoggedIn, function (req, res, next) {
@@ -66,6 +72,25 @@ router.post(
     user.profileImage = req.file.filename;
     await user.save();
     res.redirect("/users/profile");
+  }
+);
+
+router.post(
+  "/createpost",
+  isLoggedIn,
+  upload.single("postimage"),
+  async function (req, res, next) {
+    let user = await userModel.findOne({ username: req.session.passport.user });
+    let post = await postModel.create({
+      user: user._id,
+      title: req.body.title,
+      description: req.body.description,
+      postImage: req.file.filename,
+      keywords: req.body.keywords.split(",").map((e) => "#" + e.toLowerCase().trim()),
+    });
+    user.posts.push(post._id);
+    await user.save();
+    res.redirect("/users/create");
   }
 );
 

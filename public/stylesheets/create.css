@@ -1,0 +1,148 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #2C3E50;
+}
+
+/* Profile */
+.post-container {
+    position: relative;
+    top: 17%;
+}
+
+.post-form {
+    display: inline-block;
+    text-align: center;
+}
+
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .form-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .left-block {
+    width: 45%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .right-block {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  textarea,
+  input[type="text"] {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #E0E0E0;
+    border-radius: 4px;
+    font-size: 16px;
+    &:focus{
+      outline-color: #cccbcb;
+    }
+  }
+
+  .post-form {
+    .title,
+    .description,
+    .keywords {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #E0E0E0;
+      border-radius: 4px;
+      font-size: 16px;
+      font-family: Arial, sans-serif; /* Ensure the font-family is the same */
+      line-height: 1.5; /* Optional for better readability */
+    }
+  
+    .description {
+      height: 90%;
+      margin: 10px 0 10px 0;
+      resize: none; /* Prevent the user from resizing the textarea */
+    }
+  
+    .description::placeholder,
+    .title::placeholder,
+    .keywords::placeholder {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-family: Arial, sans-serif; /* Match the placeholder font-family */
+      font-size: 16px; /* Match the placeholder font-size */
+    }
+  }
+  
+/* Style the file input */
+input[type="file"] {
+    display: inline-block;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    height: 40px;
+    width: 235px; /* Keep the default width based on content */
+}
+
+/* Style the file input on hover */
+input[type="file"]:hover {
+  background-color: #e8e8e8;
+  border-color: #888;
+}
+
+.image-preview {
+  width: 100%;
+  height: 200px;
+  border: 1px dashed #ccc;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.submit-btn {
+  width: 235px;
+  padding: 10px;
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #3D7CC0;
+}
+  

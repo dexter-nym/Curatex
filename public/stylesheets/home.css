@@ -8,69 +8,25 @@ body {
     font-family: Arial, sans-serif;
     background-color: transparent;
     display: flex;
-    justify-content: center;
     align-items: center;
     height: 100vh;
     flex-direction: column;
+    overflow-y: scroll;
 }
-/* Content Area */
-.main-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 70px; /* to avoid navbar overlap */
-    gap: 20px;
-    padding: 20px;
-    width: 100%;
-}
-
-.pin {
-    width: 280px;
+h1 {
     margin-bottom: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    font-size: 24px;
+    color: #2C3E50;
 }
 
-.pin img {
-    width: 100%;
-    height: auto;
+/* Profile */
+.post-container {
+    position: relative;
+    top: 17%;
 }
 
-.pin-content {
-    padding: 15px;
+.post-form {
+    display: inline-block;
     text-align: center;
 }
 
-.pin-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.pin-description {
-    font-size: 14px;
-    color: #7f8c8d;
-    margin-bottom: 10px;
-}
-
-.pin-buttons {
-    display: flex;
-    justify-content: space-between;
-}
-
-.button {
-    padding: 10px;
-    font-size: 14px;
-    cursor: pointer;
-    color: #3498db;
-    background: none;
-    border: none;
-    transition: all 0.3s;
-}
-
-.button:hover {
-    color: #2980b9;
-}

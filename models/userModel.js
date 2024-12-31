@@ -25,10 +25,12 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "profile.png",
   },
-  posts: {
-    type: Array,
-    default: [],
-  },
+  posts: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      re: "post",
+    },
+  ],
   createdAt: {
     type: Date,
     default: Date.now,

@@ -1,63 +1,30 @@
 <% include partials/headtop %>
-    <title>Home</title>
-    <link rel="stylesheet" href="/stylesheets/home.css">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/stylesheets/profile.css">
 <% include partials/navbar %>
 
-    <div class="main-content">
-        <!-- Example Pin 1 -->
-        <div class="pin">
-            <img src="https://via.placeholder.com/280x280" alt="Pin Image 1">
-            <div class="pin-content">
-                <div class="pin-title">Nature Photography</div>
-                <div class="pin-description">A beautiful shot of the mountains at sunrise.</div>
-                <div class="pin-buttons">
-                    <button class="button">Save</button>
-                    <button class="button">Share</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Example Pin 2 -->
-        <div class="pin">
-            <img src="https://via.placeholder.com/280x280" alt="Pin Image 2">
-            <div class="pin-content">
-                <div class="pin-title">Modern Architecture</div>
-                <div class="pin-description">Sleek design with contemporary elements.</div>
-                <div class="pin-buttons">
-                    <button class="button">Save</button>
-                    <button class="button">Share</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Example Pin 3 -->
-        <div class="pin">
-            <img src="https://via.placeholder.com/280x280" alt="Pin Image 3">
-            <div class="pin-content">
-                <div class="pin-title">DIY Craft Ideas</div>
-                <div class="pin-description">Step-by-step guide to creating home decor.</div>
-                <div class="pin-buttons">
-                    <button class="button">Save</button>
-                    <button class="button">Share</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Example Pin 4 -->
-        <div class="pin">
-            <img src="https://via.placeholder.com/280x280" alt="Pin Image 3">
-            <div class="pin-content">
-                <div class="pin-title">DIY Craft Ideas</div>
-                <div class="pin-description">Step-by-step guide to creating home decor.</div>
-                <div class="pin-buttons">
-                    <button class="button">Save</button>
-                    <button class="button">Share</button>
-                </div>
-            </div>
+    <div class="post-container">
+        <div class="post-form">
+            
         </div>
     </div>
 
     <script>
+        // Function to toggle the comment dock visibility
+        function toggleCommentsDock() {
+            const dock = document.getElementById('comments-dock');
+            dock.style.display = (dock.style.display === 'block' ? 'none' : 'block');
+        }
+
+        // Function to close the comment dock when clicking outside
+        document.addEventListener('click', function(event) {
+            const dock = document.getElementById('comments-dock');
+            const commentIcon = document.querySelector('.comments-icon');
+            if (!commentIcon.contains(event.target) && !dock.contains(event.target)) {
+                dock.style.display = 'none';
+            }
+        });
+
         // Function to toggle user profile dropdown visibility
         function toggleUserProfile(event) {
             const dropdown = document.getElementById('user-profile-dropdown');
@@ -73,51 +40,7 @@
             } else {
                 dropdown.style.display = 'none';
             }
-        };
-
-        // Function to toggle the comment dock visibility
-        function toggleCommentsDock() {
-          const dock = document.getElementById("comments-dock");
-          dock.style.display = dock.style.display === "block" ? "none" : "block";
         }
-        
-        // Function to close the comment dock when clicking outside
-        document.addEventListener("click", function (event) {
-          const dock = document.getElementById("comments-dock");
-          const commentIcon = document.querySelector(".comments-icon");
-          if (!commentIcon.contains(event.target) && !dock.contains(event.target)) {
-            dock.style.display = "none";
-          }
-        });
-        
-        // Function to toggle user profile dropdown visibility
-        function toggleUserProfile(event) {
-          const dropdown = document.getElementById("user-profile-dropdown");
-          const isDropdownVisible = dropdown.style.display === "block";
-        
-          // Close any open dropdowns first
-          const allDropdowns = document.querySelectorAll(".user-profile-dropdown");
-          allDropdowns.forEach((dropdown) => (dropdown.style.display = "none"));
-        
-          // Toggle the visibility of the clicked profile dropdown
-          if (!isDropdownVisible) {
-            dropdown.style.display = "block";
-          } else {
-            dropdown.style.display = "none";
-          }
-        }
-        
-        // Close the user profile dropdown if clicking outside
-        document.addEventListener("click", function (event) {
-          const dropdown = document.getElementById("user-profile-dropdown");
-          const profileImg = document.querySelector(".profile-nav");
-        
-          // Close dropdown if click is outside of the profile image and dropdown
-          if (!profileImg.contains(event.target) && !dropdown.contains(event.target)) {
-            dropdown.style.display = "none";
-          }
-        });
-        
 
         // Close the user profile dropdown if clicking outside
         document.addEventListener('click', function(event) {
@@ -129,6 +52,13 @@
                 dropdown.style.display = 'none';
             }
         });
+
+        document.querySelector("#profile").addEventListener('click', function(){
+            document.querySelector("#setprofile input").click();
+        });
+        document.querySelector("#setprofile input").addEventListener("change", function(){
+            document.querySelector("#setprofile").submit();
+        })
     </script>
 </body>
 </html>
