@@ -8,7 +8,9 @@ const upload = require("../utils/multer");
 
 /* GET users listing. */
 router.get("/profile", isLoggedIn, async function (req, res) {
-  let user = await userModel.findOne({ username: req.session.passport.user });
+  let user = await userModel
+    .findOne({ username: req.session.passport.user })
+    .populate("posts");
   res.render("profile", { user });
 });
 
@@ -86,7 +88,9 @@ router.post(
       title: req.body.title,
       description: req.body.description,
       postImage: req.file.filename,
-      keywords: req.body.keywords.split(",").map((e) => "#" + e.toLowerCase().trim()),
+      keywords: req.body.keywords
+        .split(",")
+        .map((e) => "#" + e.toLowerCase().trim()),
     });
     user.posts.push(post._id);
     await user.save();

@@ -1,11 +1,11 @@
 <% include partials/headtop %>
     <title>Profile</title>
-    <link rel="stylesheet" href="/stylesheets/profile.css">
+    <link rel="stylesheet" href="/stylesheets/home.css">
 <% include partials/navbar %>
 
     <div class="post-container">
-        <div class="post-form">
-            
+        <div class="post-block">
+            hello
         </div>
     </div>
 
@@ -52,13 +52,6 @@
                 dropdown.style.display = 'none';
             }
         });
-
-        document.querySelector("#profile").addEventListener('click', function(){
-            document.querySelector("#setprofile input").click();
-        });
-        document.querySelector("#setprofile input").addEventListener("change", function(){
-            document.querySelector("#setprofile").submit();
-        })
     </script>
 </body>
 </html>

@@ -8,7 +8,6 @@ body {
     font-family: Arial, sans-serif;
     background-color: transparent;
     display: flex;
-    align-items: center;
     height: 100vh;
     flex-direction: column;
     overflow-y: scroll;
@@ -23,10 +22,11 @@ h1 {
 .post-container {
     position: relative;
     top: 17%;
+    height: auto;
+    width: 90vw;
 }
 
-.post-form {
+.post-block {
     display: inline-block;
-    text-align: center;
+    display: flex;
 }
-
