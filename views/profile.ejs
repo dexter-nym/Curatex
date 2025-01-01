@@ -26,10 +26,6 @@
                     Uploads
                     <div class="line"></div>
                 </div>
-                <div class="button" id="create-pin" onclick="toggleContent('create-pin')">
-                    Create Pin
-                    <div class="line"></div>
-                </div>
             </div>
 
             <div id="saved-pins-content" class="content">Saved Pins Content</div>
@@ -47,18 +43,15 @@
                 </div>
             </div>
             <div id="uploads-content" class="content">
-                
-            </div>
-            <div id="create-pin-content" class="content">
-                <form action="/users/post" method="POST" class="form-div" enctype="multipart/form-data">
-                    <input type="text" name="title" placeholder="Image title" required>
-                    <input type="text" name="description" placeholder="Image description" required>
-                    <input type="text" name="keywords" placeholder="tag1, tag2, tag3" required>
-                    <div class="submit-pin-button">
-                        <input type="file" name="image" placeholder="Select your image" required>
-                        <button type="submit">Submit & Login</button>
+                <div class="post-container">
+                    <div class="post-grid">
+                        <% user.posts.forEach(function(post) { %>
+                            <div class="post-block">
+                                <img src="/images/uploads/<%= post.postImage %>" alt="Post Image">
+                            </div>
+                        <% }); %>            
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>

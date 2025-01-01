@@ -15,8 +15,10 @@ router.get("/profile", isLoggedIn, async function (req, res) {
 });
 
 router.get("/home", isLoggedIn, async function (req, res) {
-  let user = await userModel.findOne({ username: req.session.passport.user });
-  res.render("home", { user });
+  let user = await userModel
+    .findOne({ username: req.session.passport.user })
+  let allPost= postModel.find().populate("user");
+  res.render("home", { user, allPost });
 });
 
 router.get("/create", isLoggedIn, async function (req, res) {
