@@ -1,0 +1,66 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #2C3E50;
+}
+
+/* Profile */
+.post-container {
+    position: relative;
+    top: 10%;
+    width: 92vw;
+}
+.post-grid {
+    width: 100%;
+    column-width: 200px;
+}
+.post-block {
+    position: relative;
+    img {
+        width: 100%;
+        border-radius: 20px;
+        margin: 6px;
+}}
+
+/* Post Block */
+.post-block {
+    position: relative; /* Ensures the button is positioned relative to this container */
+}
+
+/* Save Button */
+.save-button {
+    position: absolute;
+    top: 16px;
+    right: 5px;
+    padding: 8px 12px;
+    background-color: #3d9bff;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    opacity: 0; /* Initially hidden */
+    border-radius: 12px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+/* Show the button on hover */
+.post-block:hover .save-button {
+    opacity: 1; /* Show the button when hovering over the .post-block */
+}
+

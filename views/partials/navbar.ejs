@@ -64,7 +64,6 @@
     .search-container {
         display: flex;
         align-items: center;
-        position: relative;
         flex-grow: 1;
         margin-left: 20px;
     }
@@ -73,14 +72,22 @@
         border-radius: 35px;
         border: 1px solid #ffffff;
         background-color: rgb(236, 236, 236); /* Lighter color */
-        height: 50px;
-        width: 90%;
         font-size: 14px;
+        width: 90%;
+        
+        input[type="search"] {
+            border-radius: 35px;
+            border: 1px solid rgb(236, 236, 236);
+            background-color: transparent; /* Lighter color */
+            height: 20px;
+            font-size: 14px;
+            width: 100%;
+        }
     }
-    input[type="text"]:focus {
+    
+
+    input[type="search"]:focus {
     outline: none; /* Removes the default outline */
-    border: 2px solid #3498DB; /* Adds a custom border */
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5); /* Optional: Adds a glow effect */
 }
     .comments-icon {
         font-size: 20px;
@@ -159,12 +166,14 @@
         <a href="/users/create" id="create" >Create</a>
     </div>
     <div class="search-container">
-        <input class="search-bar" type="text" placeholder="Search...">
-        <span class="comments-icon" onclick="toggleCommentsDock()">💬</span>
-        <!-- Profile Picture in Navbar -->
-        <div class="profile-nav" onclick="toggleUserProfile()">
-            <img src="/images/uploads/<%= user.profileImage %>" alt="Profile Picture">
-        </div>
+        <form action="/users/search" method="POST" class="search-bar">
+            <input id="search" type="search" name="input" placeholder="Search...">
+        </form>
+    </div>
+    <span class="comments-icon" onclick="toggleCommentsDock()">💬</span>
+    <!-- Profile Picture in Navbar -->
+    <div class="profile-nav" onclick="toggleUserProfile()">
+        <img src="/images/uploads/<%= user.profileImage %>" alt="Profile Picture">
     </div>
     <div id="user-profile-dropdown" class="user-profile-dropdown">
         <a href="/users/profile">Profile</a>

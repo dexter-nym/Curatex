@@ -1,0 +1,18 @@
+<% include partials/headtop %>
+    <title>Profile</title>
+    <link rel="stylesheet" href="/stylesheets/home.css">
+<% include partials/navbar %>
+
+    <div class="post-container">
+        <div class="post-grid">
+            <% posts.forEach(function(post) { %>
+                <div class="post-block">
+                    <img src="/images/uploads/<%= post.postImage %>" alt="Post Image">
+                </div>
+            <% }); %>            
+        </div>
+    </div>
+
+    <script src="/javasrcipts/funtionality"></script>
+</body>
+</html>

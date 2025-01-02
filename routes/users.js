@@ -15,9 +15,8 @@ router.get("/profile", isLoggedIn, async function (req, res) {
 });
 
 router.get("/home", isLoggedIn, async function (req, res) {
-  let user = await userModel
-    .findOne({ username: req.session.passport.user })
-  let allPost= postModel.find().populate("user");
+  let user = await userModel.findOne({ username: req.session.passport.user });
+  let allPost = await postModel.find().populate("user");
   res.render("home", { user, allPost });
 });
 
@@ -25,6 +24,7 @@ router.get("/create", isLoggedIn, async function (req, res) {
   let user = await userModel.findOne({ username: req.session.passport.user });
   res.render("create", { user });
 });
+
 
 router.get("/logout", isLoggedIn, function (req, res, next) {
   req.logout(function (err) {
@@ -99,5 +99,20 @@ router.post(
     res.redirect("/users/create");
   }
 );
+
+router.post("/search", isLoggedIn, async function (req, res) {
+  const user = await userModel.findOne({ username: req.session.passport.user });
+  const searchQuery = req.body.input.toLowerCase();
+  const searchArr = searchQuery.split(" ");
+  const regexQueries = searchArr.map((e) => ({
+    $or: [
+      { title: { $regex: e } },
+      { description: { $regex: e } },
+      { keywords: { $regex: e } },
+    ],
+  }));
+  const posts = await postModel.find({ $or: regexQueries });
+  res.render("explore", {posts, user});
+});
 
 module.exports = router;
